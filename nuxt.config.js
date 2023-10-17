@@ -37,10 +37,15 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/tailwindcss'],
+  buildModules: [
+    '@nuxtjs/dotenv', 
+    '@nuxtjs/tailwindcss'
+  ],
 
+      
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/dotenv', 
     '@nuxtjs/tailwindcss',
     '@nuxtjs/axios',
   ],
@@ -49,6 +54,10 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     baseURL: '/',
+  },
+
+  publicRuntimeConfig: {
+    OPEN_AI_KEY: process.env.OPEN_AI_KEY
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -63,9 +72,6 @@ export default {
       postcssOptions: require('./postcss.config.js'),
     },
   },
-
-  
-  
 
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],

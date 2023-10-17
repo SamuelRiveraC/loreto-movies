@@ -102,7 +102,7 @@ export default {
         presence_penalty: 0
       }, {
         headers: {
-          'Authorization': `Bearer ${process.env.OPEN_AI_KEY}`,
+          'Authorization': `Bearer ${this.$config.OPEN_AI_KEY}`,
           'Content-Type': 'application/json'
         }
       }).then(response => {
