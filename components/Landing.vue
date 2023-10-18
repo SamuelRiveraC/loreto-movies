@@ -1,10 +1,8 @@
 <template>
   <div class="relative min-h-screen flex items-top justify-center py-8 bg-gray-950 text-gray-200">
     <div class="fixed" style="padding-top:2rem; right:4rem">
-      <a class="text-xl text-white" href="https://enlightdistributions.com/">Return to Home</a>
+      <a class="bg-black rounded px-4 py-2 text-xl text-white" href="https://enlightdistributions.com/">Return to Home</a>
     </div>
-
-
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
       <div class="flex justify-center">
         <a class="flex justify-center" href="https://enlightdistributions.com/" target="_blank">
@@ -40,7 +38,9 @@
 
         <div class="markdown_content" v-else-if="!loading && scriptFormatted && scriptFormatted.length" v-html=scriptFormatted></div>
 
-        <div v-if="chartData.show" class="my-8">
+        <div v-if="chartData.show" class="markdown_content text-center my-8">
+          <hr />  
+          <h1>Budget Percentages</h1>
           <Chart :chartData="chartData"/>
         </div>
       </div>  
@@ -66,10 +66,16 @@ export default {
     chartData () {
       if (this.scriptFormatted.length === 0) return { show: false }; 
       
-      const matches = [...this.scriptFormatted.matchAll(/<li>(.+?)\s(\d+)%<\/li>/g)];
-
+      const matches = [
+        ...this.scriptFormatted.matchAll(/>(.+?)\s(\d+)%/g),
+      ];
       const matchesLabels = matches.map(match => {
-        return match[1].trim()
+        let matchFormatted = match[1]
+        matchFormatted = matchFormatted.replace('<li>','')
+        matchFormatted = matchFormatted.replace('</li>','')
+        matchFormatted = matchFormatted.replace('<p>','')
+        matchFormatted = matchFormatted.replace('</p>','')
+        return matchFormatted.trim()
       });
       const matchesDatasets = matches.map(match => {
         return parseInt(match[2], 10)
@@ -82,7 +88,7 @@ export default {
 
       return {
         show: true,
-        labels: [matchesLabels],
+        labels: [...matchesLabels],
         datasets: [{
             data: matchesDatasets,
         }]

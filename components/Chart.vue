@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas id="pieChart" width="400" height="400"></canvas>
+    <canvas id="pieChart" width="600" height="400"></canvas>
   </div>
 </template>
   <script>
