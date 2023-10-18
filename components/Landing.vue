@@ -3,10 +3,16 @@
     <div class="fixed" style="padding-top:2rem; right:4rem">
       <a class="bg-black rounded px-4 py-2 text-xl text-white" href="https://enlightdistributions.com/">Return to Home</a>
     </div>
+    <div class="fixed" style="padding-top:1.4rem; left:4rem">
+      <a href="https://enlightdistributions.com/">
+        <img style="height: 48px;" src="https://enlightstudiosnet.files.wordpress.com/2023/09/front-page-logoartboard-1_1-8.png" alt="Enlight Distributions">
+      </a>
+    </div>
+    
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-      <div class="flex justify-center">
+      <div class="flex justify-center" style="margin-top: -40px; margin-bottom: -40px;">
         <a class="flex justify-center" href="https://enlightdistributions.com/" target="_blank">
-          <img style="height: 80px;" src="https://enlightstudiosnet.files.wordpress.com/2023/09/front-page-logoartboard-1_1-8.png" alt="Enlight Distributions">
+          <img style="height: 240px;" src="https://enlightstudiosnet.files.wordpress.com/2023/10/nova_logo_no_background_v1artboard_5.png" alt="Enlight Distributions">
         </a>
       </div>
       
