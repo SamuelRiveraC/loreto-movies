@@ -7,14 +7,14 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'loreto-movies',
+    title: `Enlight Distributions' Nova AI`,
     htmlAttrs: {
       lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: `Harness the insight of Nova to refine your film's marketing approach. Submit your script below, and we'll provide detailed marketing insights tailored for your narrative.` },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
@@ -23,6 +23,7 @@ export default {
     script: [
       { src: 'https://cdn.jsdelivr.net/npm/marked/marked.min.js' },
       { src: 'https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/build/pdf.min.js' },
+      { src: 'https://cdn.jsdelivr.net/npm/chart.js@4.2.0/dist/chart.umd.js' },
       { type: 'text/javascript', src: '/js/pdf_viewer.js' },
     ],
   },
@@ -62,12 +63,6 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    extend(config, ctx) {
-      config.module.rules.push({
-        test: /\.umd\.js$/,
-        use: 'raw-loader'
-      })
-    },
     postcss: {
       postcssOptions: require('./postcss.config.js'),
     },

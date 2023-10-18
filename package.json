@@ -12,15 +12,14 @@
     "@nuxtjs/axios": "^5.13.6",
     "chart.js": "^4.4.0",
     "core-js": "^3.25.3",
-    "marked": "^4.0.15",
     "nuxt": "^2.15.8",
     "openai": "^4.12.3",
     "vue": "^2.7.10",
-    "vue-chartjs": "^5.2.0",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10"
   },
   "devDependencies": {
+    "@nuxt/babel-preset-app": "^2.17.1",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "autoprefixer": "^10.4.16",

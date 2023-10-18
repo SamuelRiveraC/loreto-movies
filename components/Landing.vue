@@ -1,18 +1,26 @@
 <template>
   <div class="relative min-h-screen flex items-top justify-center py-8 bg-gray-950 text-gray-200">
+    <div class="fixed" style="padding-top:2rem; right:4rem">
+      <a class="text-xl text-white" href="https://enlightdistributions.com/">Return to Home</a>
+    </div>
+
+
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-      <a class="flex justify-center" href="https://nuxtjs.org" target="_blank">
-        <img style="height: 80px;" src="https://enlightstudiosnet.files.wordpress.com/2023/09/front-page-logoartboard-1_1-8.png" alt="Enlight Distributions">
-      </a>
+      <div class="flex justify-center">
+        <a class="flex justify-center" href="https://enlightdistributions.com/" target="_blank">
+          <img style="height: 80px;" src="https://enlightstudiosnet.files.wordpress.com/2023/09/front-page-logoartboard-1_1-8.png" alt="Enlight Distributions">
+        </a>
+      </div>
+      
       <div class="mt-4 text-center">
-        <h1 class="text-6xl text-gray-50 font-bold leading-snug">
-          Nova AI <br> Film Script Analysis
+        <h1 class="text-4xl text-gray-50 leading-snug" style="font-weight: 500; font-style: italic;">
+          Nova AI Film Script Analysis
         </h1>
-        <p class="mt-4 text-gray-200">
+        <p class="mt-4 text-xl text-gray-200">
           Harness the insight of Nova to refine your film's marketing approach. Submit your script below, and we'll provide detailed marketing insights tailored for your narrative.<br>
         </p>
       </div>
-      <div class="mt-8 flex items-center justify-center rounded-xl shadow shadow-xl p-6 bg-gray-900 text-gray-200">
+      <div class="mt-8 flex flex-col items-center justify-center rounded-xl shadow shadow-xl p-6 bg-gray-900 text-gray-200">
         <div v-if="loading" class='flex flex-col items-center justify-center py-16'>
             <div style="border-top-color:transparent" class="w-8 h-8 border-4 border-blue-200 rounded-full animate-spin"></div>
             <p class="ml-2">
@@ -31,6 +39,10 @@
         </label>
 
         <div class="markdown_content" v-else-if="!loading && scriptFormatted && scriptFormatted.length" v-html=scriptFormatted></div>
+
+        <div v-if="chartData.show" class="my-8">
+          <Chart :chartData="chartData"/>
+        </div>
       </div>  
     </div>
   </div>
@@ -50,6 +62,31 @@ export default {
   computed: {
     scriptFormatted () {
       return this.scriptRaw.length ? marked.parse(this.scriptRaw, { xhtml: true }) : '';
+    },
+    chartData () {
+      if (this.scriptFormatted.length === 0) return { show: false }; 
+      
+      const matches = [...this.scriptFormatted.matchAll(/<li>(.+?)\s(\d+)%<\/li>/g)];
+
+      const matchesLabels = matches.map(match => {
+        return match[1].trim()
+      });
+      const matchesDatasets = matches.map(match => {
+        return parseInt(match[2], 10)
+      });
+
+      console.log(matchesLabels, matchesDatasets)
+
+      if (matchesLabels.length === 0 || matchesDatasets.length === 0 ) return { show: false }; 
+      if (matchesLabels.length !== matchesDatasets.length ) return { show: false }; 
+
+      return {
+        show: true,
+        labels: [matchesLabels],
+        datasets: [{
+            data: matchesDatasets,
+        }]
+      }
     }
   },
   methods: {
@@ -96,7 +133,6 @@ export default {
           }
         ],
         temperature: 0.8,
-        max_tokens: 1500,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0
@@ -116,13 +152,10 @@ export default {
       let chunks = []
       const maxChunkSize = 4000
       let encodedText = script.split(/\s+/); // This splits the text by spaces
-      console.log("chunkscript start", encodedText)
 
       for (let i = 0; i < encodedText.length; i += maxChunkSize) {
         chunks.push(encodedText.slice(i, i + maxChunkSize));
       }
-
-      console.log("chunkscript chunks", chunks)
 
       if (chunks.length == 0) {
         return {error: "Error importing text from PDF"}
@@ -146,22 +179,22 @@ export default {
         const reader = new FileReader();
         reader.onload = async () => {
           try {
-            console.log("start")
+            // console.log("start")
             this.loadingStatus = "Uploading PDF..."
             let extractedText = await this.extractText(reader.result);
             if (extractedText.error) throw extractedText.error
-            console.log("extractText", extractedText.length)
+            // console.log("extractText", extractedText.length)
 
             let chunkedScript = this.chunkscript(extractedText)
             if (chunkedScript.error) throw chunkedScript.error
-            console.log("chunkscript", chunkedScript.length)
+            // console.log("chunkscript", chunkedScript.length)
 
-            this.loadingStatus = "Analyzing PDF..."
+            this.loadingStatus = "Analyzing PDF. This can take a while. Do not exit.  .."
             let scriptRaw = await this.processAI(chunkedScript)
             if (scriptRaw.error) throw scriptRaw.error
             else if (scriptRaw.data) this.scriptRaw = scriptRaw.data
             else throw "Something wrent wrong"
-            console.log("processAI", scriptRaw)
+            // console.log("processAI", scriptRaw)
             this.loading = false
             this.loadingStatus = "Loading..."
           } catch (error) {
