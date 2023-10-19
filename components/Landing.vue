@@ -87,8 +87,8 @@ export default {
     }
   },
   mounted () {
-    if (this.$config.PASSWORD_PROTECT == "true" || this.$config.PASSWORD_PROTECT == true || this.$config.PASSWORD_PROTECT == !0) {
-      let password_env = this.$config.PASSWORD ? this.$config.PASSWORD : '';
+    if (process.env.PASSWORD_PROTECT == "true" || process.env.PASSWORD_PROTECT == true || process.env.PASSWORD_PROTECT == !0) {
+      let password_env = process.env.PASSWORD ? process.env.PASSWORD : '';
 
       if (this.isCookieExpired("novaaipass")) {
         let password = prompt('Enter password to view page (No need to enter it again for 7 days)', '');
@@ -208,7 +208,7 @@ export default {
         presence_penalty: 0
       }, {
         headers: {
-          'Authorization': `Bearer ${this.$config.OPEN_AI_KEY}`,
+          'Authorization': `Bearer ${process.env.OPEN_AI_KEY}`,
           'Content-Type': 'application/json'
         }
       }).then(response => {
