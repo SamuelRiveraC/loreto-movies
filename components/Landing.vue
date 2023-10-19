@@ -75,7 +75,7 @@ export default {
       loadingStatus: 'Loading...'
     }
   },
-  created () {
+  mounted () {
     if (process.env.PASSWORD_PROTECT == "true" || process.env.PASSWORD_PROTECT == true || process.env.PASSWORD_PROTECT == !0) {
       let password_env = process.env.PASSWORD ? process.env.PASSWORD : '';
       let password = prompt('Enter password to view page',' ');
