@@ -58,7 +58,9 @@ export default {
   },
 
   publicRuntimeConfig: {
-    OPEN_AI_KEY: process.env.OPEN_AI_KEY
+    OPEN_AI_KEY: process.env.OPEN_AI_KEY,
+    PASSWORD: process.env.PASSWORD,
+    PASSWORD_PROTECT: process.env.PASSWORD_PROTECT,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
