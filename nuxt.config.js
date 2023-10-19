@@ -57,7 +57,7 @@ export default {
     baseURL: '/',
   },
 
-  runtimeConfig: {
+  env: {
     OPEN_AI_KEY: process.env.OPEN_AI_KEY,
     PASSWORD: process.env.PASSWORD,
     PASSWORD_PROTECT: process.env.PASSWORD_PROTECT,
