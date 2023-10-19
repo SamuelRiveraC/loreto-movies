@@ -76,14 +76,16 @@ export default {
     }
   },
   created () {
-    var password_env = process.env.PASSWORD ? process.env.PASSWORD : '';
-    let password = prompt('Enter password to view page',' ');
-    if(password === password_env){
-        alert('Correct password, click ok to enter');
-        return true;
-    } else {
-        window.location="https://enlightdistributions.com/";
-        return false;
+    if (process.env.PASSWORD_PROTECT) {
+      let password_env = process.env.PASSWORD ? process.env.PASSWORD : '';
+      let password = prompt('Enter password to view page',' ');
+      if(password === password_env){
+          alert('Correct password, click ok to enter');
+          return true;
+      } else {
+          window.location="https://enlightdistributions.com/";
+          return false;
+      }
     }
   },
   computed: {
