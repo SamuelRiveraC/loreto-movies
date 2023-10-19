@@ -83,6 +83,7 @@ export default {
           alert('Correct password, click ok to enter');
           return true;
       } else {
+          alert('Wrong password, You will be redirected');
           window.location="https://enlightdistributions.com/";
           return false;
       }
