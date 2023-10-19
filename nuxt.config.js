@@ -18,7 +18,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: 'https://enlightstudiosnet.files.wordpress.com/2023/04/cropped-enlight-logo-icon-v2_2-black-outlineartboard-1-8.png' }
     ],
     script: [
       { src: 'https://cdn.jsdelivr.net/npm/marked/marked.min.js' },
