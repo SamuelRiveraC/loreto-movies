@@ -8,8 +8,8 @@
         <img style="height: 48px;" src="https://enlightstudiosnet.files.wordpress.com/2023/09/front-page-logoartboard-1_1-8.png" alt="Enlight Distributions">
       </a>
     </div>
-    <div class="fixed" style="padding-top:2rem; right:4rem; bottom:4rem;" v-if="!loading && scriptFormatted && scriptFormatted.length" >
-      <p class="bg-gray-950 rounded px-4 py-2 text-xl text-white cursor-pointer flex gap-2 align-center"
+    <div class="fixed" style="padding-top:2rem; right:4rem; bottom:4rem;" v-if="!loading && scriptFormatted && scriptFormatted.length">
+      <p class="bg-gray-950 rounded px-4 py-2 text-xl text-white cursor-pointer flex gap-2 align-center mb-4"
         @click="printPage"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-500" viewBox="0 0 24 24" fill="currentColor">
@@ -21,6 +21,9 @@
       <p class="bg-gray-950 rounded px-4 py-2 text-xl text-white cursor-pointer flex gap-2 align-center"
         @click="printtxt"
       >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-red-500" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M9.586 0C10.1164 0.000113275 10.625 0.210901 11 0.586L15.414 5C15.7891 5.37499 15.9999 5.88361 16 6.414V18C16 18.5304 15.7893 19.0391 15.4142 19.4142C15.0391 19.7893 14.5304 20 14 20H2C1.46957 20 0.960859 19.7893 0.585786 19.4142C0.210714 19.0391 0 18.5304 0 18V2C0 1.46957 0.210714 0.960859 0.585786 0.585786C0.960859 0.210714 1.46957 0 2 0H9.586ZM8 2H2V18H14V8H9.5C9.10218 8 8.72064 7.84196 8.43934 7.56066C8.15804 7.27936 8 6.89782 8 6.5V2ZM5 12C5.26522 12 5.51957 12.1054 5.70711 12.2929C5.89464 12.4804 6 12.7348 6 13C6 13.2652 5.89464 13.5196 5.70711 13.7071C5.51957 13.8946 5.26522 14 5 14C4.73478 14 4.48043 13.8946 4.29289 13.7071C4.10536 13.5196 4 13.2652 4 13C4 12.7348 4.10536 12.4804 4.29289 12.2929C4.48043 12.1054 4.73478 12 5 12ZM8 12C8.26522 12 8.51957 12.1054 8.70711 12.2929C8.89464 12.4804 9 12.7348 9 13C9 13.2652 8.89464 13.5196 8.70711 13.7071C8.51957 13.8946 8.26522 14 8 14C7.73478 14 7.48043 13.8946 7.29289 13.7071C7.10536 13.5196 7 13.2652 7 13C7 12.7348 7.10536 12.4804 7.29289 12.2929C7.48043 12.1054 7.73478 12 8 12ZM11 12C11.2652 12 11.5196 12.1054 11.7071 12.2929C11.8946 12.4804 12 12.7348 12 13C12 13.2652 11.8946 13.5196 11.7071 13.7071C11.5196 13.8946 11.2652 14 11 14C10.7348 14 10.4804 13.8946 10.2929 13.7071C10.1054 13.5196 10 13.2652 10 13C10 12.7348 10.1054 12.4804 10.2929 12.2929C10.4804 12.1054 10.7348 12 11 12ZM10 2.414V6H13.586L10 2.414Z"/>
+        </svg>
         Download txt
       </p>
 
@@ -84,9 +87,9 @@ export default {
     }
   },
   mounted () {
-    console.log(process.env.PASSWORD_PROTECT, process.env.PASSWORD_PROTECT == "true", process.env.PASSWORD_PROTECT == true, process.env.PASSWORD_PROTECT == !0)
-    if (process.env.PASSWORD_PROTECT == "true" || process.env.PASSWORD_PROTECT == true || process.env.PASSWORD_PROTECT == !0) {
-      let password_env = process.env.PASSWORD ? process.env.PASSWORD : '';
+    console.log(this.$config.PASSWORD_PROTECT)
+    if (this.$config.PASSWORD_PROTECT == "true" || this.$config.PASSWORD_PROTECT == true || this.$config.PASSWORD_PROTECT == !0) {
+      let password_env = this.$config.PASSWORD ? this.$config.PASSWORD : '';
       let password = prompt('Enter password to view page',' ');
       if(password === password_env){
           alert('Correct password, click ok to enter');
@@ -212,6 +215,7 @@ export default {
     },
     
     async upload (event) {
+      this.error = ''
       this.loading = true
       try {
         if (event.target.files.length == 0) throw "Problem uploading a PDF file";
