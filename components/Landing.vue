@@ -5,7 +5,7 @@
     </div>
     <div class="fixed" style="padding-top:1.4rem; left:4rem">
       <a href="https://enlightdistributions.com/">
-        <img style="height: 48px;" src="https://enlightstudiosnet.files.wordpress.com/2023/09/front-page-logoartboard-1_1-8.png" alt="Enlight Distributions">
+        <img style="height: 140px;" src="https://enlightstudiosnet.files.wordpress.com/2023/09/front-page-logoartboard-1_1-8.png" alt="Enlight Distributions">
       </a>
     </div>
     <div class="fixed" style="padding-top:2rem; right:4rem; bottom:4rem;" v-if="!loading && scriptFormatted && scriptFormatted.length">
