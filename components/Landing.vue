@@ -87,15 +87,17 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$config.PASSWORD_PROTECT)
     if (this.$config.PASSWORD_PROTECT == "true" || this.$config.PASSWORD_PROTECT == true || this.$config.PASSWORD_PROTECT == !0) {
       let password_env = this.$config.PASSWORD ? this.$config.PASSWORD : '';
-      let password = prompt('Enter password to view page',' ');
-      if(password === password_env){
-          alert('Correct password, click ok to enter');
-      } else {
+
+      if (this.isCookieExpired("novaaipass")) {
+        let password = prompt('Enter password to view page (No need to enter it again for 7 days)', '');
+        if(password === password_env) {
+          this.createCookie("novaaipass", 7)
+        } else {
           alert('Wrong password, You will be redirected');
           window.location="https://enlightdistributions.com/";
+        }
       }
     }
   },
@@ -136,6 +138,28 @@ export default {
     }
   },
   methods: {
+    createCookie(name, days) {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+      const expiresString = `expires=${expires.toUTCString()}`;
+      document.cookie = `${name}=true;${expiresString};path=/`;
+    },
+
+    isCookieExpired(cookieName) {
+      const cookies = document.cookie.split('; ');
+      for (let i = 0; i < cookies.length; i++) {
+        const parts = cookies[i].split('=');
+        if (parts[0] === cookieName) {
+          const expires = new Date(parts[1]);
+          const currentDate = new Date();
+          return expires < currentDate;
+        }
+      }
+      return true; // Cookie not found
+    }
+
+
+
     async extractText(dataUrl) {
       const loadingTask = pdfjsLib.getDocument({ url: dataUrl });
       return loadingTask.promise.then((pdf) => {
