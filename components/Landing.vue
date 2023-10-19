@@ -33,7 +33,7 @@
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
       <div class="flex justify-center" style="margin-top: -40px; margin-bottom: -40px;">
         <a class="flex justify-center" href="https://enlightdistributions.com/" target="_blank">
-          <img style="height: 240px;" src="https://enlightstudiosnet.files.wordpress.com/2023/10/nova_logo_no_background_v1artboard_5.png" alt="Enlight Distributions">
+          <img style="height: 290px;" src="https://enlightstudiosnet.files.wordpress.com/2023/10/nova_logo_no_background_v1artboard_5.png" alt="Enlight Distributions">
         </a>
       </div>
       
