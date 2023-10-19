@@ -156,7 +156,7 @@ export default {
         }
       }
       return true; // Cookie not found
-    }
+    },
 
 
 
