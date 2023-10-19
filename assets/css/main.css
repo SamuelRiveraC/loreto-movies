@@ -6,3 +6,9 @@
 * {
     font-family: 'DM Sans', sans-serif;
 }
+@media print {
+    body {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+}
